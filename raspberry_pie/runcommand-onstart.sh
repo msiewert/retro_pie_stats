@@ -1,0 +1,2 @@
+#echo $(date)'|'start'|'$RETROPIE_GAME_NAME'|'$1'|'$2'|'$3'|'$4 >> ~/RetroPie/game_stats.log
+python3 ~/sdk-workspace/aws-iot-device-sdk-python-v2/samples/publish_game_data.py --endpoint a1nhd311mssrl7-ats.iot.us-west-2.amazonaws.com --ca_file ~/certs/AmazonRootCA1.pem --cert ~/certs/certificate.pem --key ~/certs/private.pem.key --emulator "$1" --game "$3" --action start
