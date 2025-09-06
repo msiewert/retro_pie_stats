@@ -1,12 +1,12 @@
+import argparse
+import json
+import sys
+import threading
+import time
 from datetime import datetime
 
 from awscrt import mqtt
 from awsiot import mqtt_connection_builder
-import sys
-import threading
-import time
-import argparse
-import json
 
 parser = argparse.ArgumentParser(description="Process RetroPie arguments.")
 parser.add_argument("--action", type=str, help="The action being taken.")
@@ -29,6 +29,7 @@ print(f"key: {args.key}")
 
 received_all_event = threading.Event()
 
+
 # Callback when connection is accidentally lost.
 def on_connection_interrupted(connection, error, **kwargs):
     print("Connection interrupted. error: {}".format(error))
@@ -36,7 +37,11 @@ def on_connection_interrupted(connection, error, **kwargs):
 
 # Callback when an interrupted connection is re-established.
 def on_connection_resumed(connection, return_code, session_present, **kwargs):
-    print("Connection resumed. return_code: {} session_present: {}".format(return_code, session_present))
+    print(
+        "Connection resumed. return_code: {} session_present: {}".format(
+            return_code, session_present
+        )
+    )
 
     if return_code == mqtt.ConnectReturnCode.ACCEPTED and not session_present:
         print("Session did not persist. Resubscribing to existing topics...")
@@ -51,7 +56,7 @@ def on_resubscribe_complete(resubscribe_future):
     resubscribe_results = resubscribe_future.result()
     print("Resubscribe results: {}".format(resubscribe_results))
 
-    for topic, qos in resubscribe_results['topics']:
+    for topic, qos in resubscribe_results["topics"]:
         if qos is None:
             sys.exit("Server rejected resubscribe to topic: {}".format(topic))
 
@@ -61,21 +66,29 @@ def on_message_received(topic, payload, dup, qos, retain, **kwargs):
     print("Received message from topic '{}': {}".format(topic, payload))
     received_all_event.set()
 
+
 # Callback when the connection successfully connects
 def on_connection_success(connection, callback_data):
     assert isinstance(callback_data, mqtt.OnConnectionSuccessData)
-    print("Connection Successful with return code: {} session present: {}".format(callback_data.return_code, callback_data.session_present))
+    print(
+        "Connection Successful with return code: {} session present: {}".format(
+            callback_data.return_code, callback_data.session_present
+        )
+    )
+
 
 # Callback when a connection attempt fails
 def on_connection_failure(connection, callback_data):
     assert isinstance(callback_data, mqtt.OnConnectionFailureData)
     print("Connection failed with error code: {}".format(callback_data.error))
 
+
 # Callback when a connection has been disconnected or shutdown successfully
 def on_connection_closed(connection, callback_data):
     print("Connection closed")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
 
     # Create a MQTT connection from the command line data
     mqtt_connection = mqtt_connection_builder.mtls_from_path(
@@ -91,7 +104,8 @@ if __name__ == '__main__':
         keep_alive_secs=30,
         on_connection_success=on_connection_success,
         on_connection_failure=on_connection_failure,
-        on_connection_closed=on_connection_closed)
+        on_connection_closed=on_connection_closed,
+    )
 
     connect_future = mqtt_connection.connect()
 
@@ -108,7 +122,7 @@ if __name__ == '__main__':
 
     print("Game Name: {}".format(game))
 
-    #create an object to send to the server
+    # create an object to send to the server
     message = {
         "timestamp": datetime.now().isoformat(),
         "action": args.action,
@@ -119,12 +133,11 @@ if __name__ == '__main__':
     # Subscribe
     print("Subscribing to topic '{}'...".format(message_topic))
     subscribe_future, packet_id = mqtt_connection.subscribe(
-        topic=message_topic,
-        qos=mqtt.QoS.AT_LEAST_ONCE,
-        callback=on_message_received)
+        topic=message_topic, qos=mqtt.QoS.AT_LEAST_ONCE, callback=on_message_received
+    )
 
     subscribe_result = subscribe_future.result()
-    print("Subscribed with {}".format(str(subscribe_result['qos'])))
+    print("Subscribed with {}".format(str(subscribe_result["qos"])))
 
     # Publish message to server desired number of times.
     # This step is skipped if message is blank.
@@ -140,9 +153,8 @@ if __name__ == '__main__':
             print("Publishing message to topic '{}': {}".format(message_topic, message))
             message_json = json.dumps(message)
             mqtt_connection.publish(
-                topic=message_topic,
-                payload=message_json,
-                qos=mqtt.QoS.AT_LEAST_ONCE)
+                topic=message_topic, payload=message_json, qos=mqtt.QoS.AT_LEAST_ONCE
+            )
             time.sleep(1)
             publish_count += 1
 
