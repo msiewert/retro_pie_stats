@@ -1,0 +1,51 @@
+{
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnPaste": true,
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "file",
+        "editor.formatOnType": false,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "always"
+        },
+    },
+    "pylint.args": [
+        "--disable=missing-module-docstring",
+        "--disable=missing-class-docstring",
+        "--disable=missing-function-docstring"
+    ],
+    "isort.args": [
+        "--profile",
+        "black"
+    ],
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.linting.pylintArgs": [
+        "--rcfile",
+        ".pylintrc"
+    ],
+    "pylint.enabled": true,
+    "python.languageServer": "Pylance",
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.exclude": ["cdk.out"],
+    "files.insertFinalNewline": true,
+    "python.analysis.extraPaths": [
+        "./shared_layer/python"
+    ],
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true,
+        "**/cdk.out/**": true,
+        "cdk.out/**": true,
+    },
+    "files.watcherExclude": {
+        "**/cdk.out/**": true
+    },
+    "files.exclude": {
+        "**/cdk.out": true
+    },
+    "search.useParentIgnoreFiles": true,
+    "search.useGlobalIgnoreFiles": true
+}
