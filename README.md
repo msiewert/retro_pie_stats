@@ -10,6 +10,7 @@ RetroPieStats collects statistics about gameplay on RetroPie devices and stores 
 - **AWS IoT Core:** Secure message ingestion from devices
 - **AWS DynamoDB:** Storage for game statistics
 - **Python:** Raspberry Pi client and CDK scripts
+- **GitHub Copilot:** Code generation.
 
 ## Setup
 
@@ -35,6 +36,8 @@ RetroPieStats collects statistics about gameplay on RetroPie devices and stores 
 
 Place the files from the `raspberry_pie` directory onto your Raspberry Pi.  
 These files handle collecting and publishing game statistics to AWS IoT Core.
+
+The `runcommand-onend.sh` and `runcommand-onstart.sh` files go in `opt/retropie/configs/all`.
 
 ## Notes
 
