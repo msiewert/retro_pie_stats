@@ -16,10 +16,8 @@ API_KEY = os.environ["API_KEY"]
 
 
 def lambda_handler(event, _context) -> dict[str, Any]:
-    # Handle CORS preflight requests (check both httpMethod and requestContext)
-    http_method = event.get("httpMethod") or event.get("requestContext", {}).get(
-        "http", {}
-    ).get("method")
+    # Handle CORS preflight requests
+    http_method = event.get("requestContext", {}).get("http", {}).get("method")
     if http_method == "OPTIONS":
         return {
             "statusCode": 200,

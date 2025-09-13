@@ -11,7 +11,7 @@ RetroPieStats collects statistics about gameplay on RetroPie devices and stores 
 - **AWS IoT Core:** Secure message ingestion from devices
 - **AWS DynamoDB:** Storage for game statistics
 - **Python:** Raspberry Pi client and CDK scripts
-- **GitHub Copilot:** Code generation.
+- **GitHub Copilot/Amazon Q:** Code generation.
 
 ## Recommended Development Environment
 
@@ -25,7 +25,7 @@ RetroPieStats collects statistics about gameplay on RetroPie devices and stores 
 - Pylint
 - Python
 - Python Debugger
-- GitHub Copilot
+- GitHub Copilot/Amazon Q
 
 ## Setup
 
