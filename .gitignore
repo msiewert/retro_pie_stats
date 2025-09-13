@@ -11,3 +11,4 @@ cdk.out
 
 .idea
 certificate_arn.txt
+api_key.txt

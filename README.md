@@ -33,7 +33,7 @@ RetroPieStats collects statistics about gameplay on RetroPie devices and stores 
 2. **Create and activate a Python virtual environment**
    ```sh
    python -m venv .venv
-   .\.venv\Scripts\activate
+   source .venv/Scripts/activate
    ```
 
 3. **Install dependencies**

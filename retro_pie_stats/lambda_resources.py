@@ -4,6 +4,10 @@ from constructs import Construct
 
 class LambdaResources:
     def __init__(self, scope: Construct, dynamo_table):
+        # Load API key from file
+        with open("api_key.txt", "r", encoding="utf-8") as f:
+            api_key = f.read().strip()
+        
         # Lambda function for API
         self.get_stats_fn = _lambda.Function(
             scope,
@@ -11,7 +15,10 @@ class LambdaResources:
             runtime=_lambda.Runtime.PYTHON_3_11,
             handler="get_stats.lambda_handler",
             code=_lambda.Code.from_asset("retro_pie_stats/lambda"),
-            environment={"TABLE_NAME": dynamo_table.table_name},
+            environment={
+                "TABLE_NAME": dynamo_table.table_name,
+                "API_KEY": api_key
+            },
         )
         dynamo_table.grant_read_data(self.get_stats_fn)
 
