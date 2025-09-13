@@ -7,6 +7,7 @@ RetroPieStats collects statistics about gameplay on RetroPie devices and stores 
 ## Tech Stack
 
 - **AWS CDK (Python):** Infrastructure as code for AWS resources
+- **AWS Iot Python SDK (aws-iot-device-sdk-python-v2):** Installed on Raspberry Pi for communication with Iot
 - **AWS IoT Core:** Secure message ingestion from devices
 - **AWS DynamoDB:** Storage for game statistics
 - **Python:** Raspberry Pi client and CDK scripts
@@ -59,3 +60,7 @@ These files handle collecting and publishing game statistics to AWS IoT Core.
 The `runcommand-onend.sh` and `runcommand-onstart.sh` files go in `opt/retropie/configs/all`.
 
 Your certificate must also be deployed to the device. Refer to `publish_game_data.py`. Either use the hardcoded locations or update the paths in the script.
+
+```bash
+scp publish_game_data.py pi@10.0.0.44:~/sdk-workspace/aws-iot-device-sdk-python-v2/samples/publish_game_data.py
+```

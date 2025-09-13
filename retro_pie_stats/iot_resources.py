@@ -68,11 +68,6 @@ class IotResources:
                         "Action": ["iot:Publish"],
                         "Resource": f"arn:aws:iot:{scope.region}:{scope.account}:topic/game/stats",
                     },
-                    {
-                        "Effect": "Allow",
-                        "Action": ["iot:Subscribe"],
-                        "Resource": f"arn:aws:iot:{scope.region}:{scope.account}:topicfilter/game/stats",
-                    },
                 ],
             },
             policy_name="RetroPieStatsPolicy",
