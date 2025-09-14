@@ -1,5 +1,9 @@
 # RetroPieStats
 
+## Disclaimer
+
+**This project is entirely AI-generated.** The purpose is to demonstrate both technical knowledge of the AWS tech stack (CDK, IoT Core, DynamoDB, Lambda) and proficiency in leveraging generative AI tools for software development. All code, infrastructure, and documentation were created using AI assistance.
+
 ## Purpose
 
 RetroPieStats collects statistics about gameplay on RetroPie devices and stores them in AWS DynamoDB via AWS IoT Core. It enables tracking and analysis of game sessions for retro gaming enthusiasts.
